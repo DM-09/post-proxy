@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from urllib.parse import unquote
 import httpx
 
 app = FastAPI()
@@ -27,7 +28,7 @@ async def post_proxy(request: Request):
       headers = item.get('headers', pHeaders)
       data = item.get('data', None)
       method = item.get('method', None)
-      url = item.get('url', url)
+      url = unquote(item.get('url', url))
 
       if data or method == 'POST':
         if type(data).__name__ == 'dict': # POST request
