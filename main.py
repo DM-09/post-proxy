@@ -12,7 +12,7 @@ pHeaders = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 @app.api_route("/", methods=["GET", "POST"])
 async def post_proxy(request: Request):
   r = request.query_params.get('r')
-  url = ''.join(str(request.url).split('?r=')[1:]) if r else ''
+  url = unquote(''.join(str(request.url).split('?r=')[1:]) if r else '')
   res = None
 
   try:
